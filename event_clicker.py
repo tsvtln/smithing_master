@@ -6,6 +6,7 @@ import numpy as np
 import time
 
 time.sleep(5)
+start_time = time.time()
 
 targets = []
 
@@ -54,18 +55,17 @@ if not os.path.exists(targets_path):
 extract_targets(screenshot_dir, targets_path)
 
 
-def compare_targets_with_to_find(target_path, to_find_directory):
+def compare_targets_with_to_find(target_path, tfd): # tfd = to find dir
     global targets
     targets = []
-    target_name = ''
     for i in range(1, 4):
         # Load the target image
         tp = os.path.join(target_path, f"target_{i}.png")
         target_image = Image.open(tp)
 
         # Loop through images in the to_find directory
-        for filename in os.listdir(to_find_directory):
-            image_path = os.path.join(to_find_directory, filename)
+        for filename in os.listdir(tfd):
+            image_path = os.path.join(tfd, filename)
 
             # Load the image from to_find directory
             to_find_image = Image.open(image_path)
@@ -83,12 +83,16 @@ def compare_targets_with_to_find(target_path, to_find_directory):
             similarity_index, _ = ssim(target_np, to_find_np, win_size=win_size, full=True)
 
             # Print the similarity index for each image
-            print(f"Similarity index with {filename}: {similarity_index}")
+            # print(f"Similarity index with {filename}: {similarity_index}")
 
             # You can store the results in the 'targets' list if needed
-            targets.append((f"target_{i}.png", filename, similarity_index))
+            # targets.append((f"target_{i}.png", filename, similarity_index))
+            similarity_index = float(f"{similarity_index:.2f}")
+            if similarity_index >= 0.80:
+                targets.append(filename[:-4])
+                break
 
-    return targets
+    # return targets
 
 
 # Compare targets to images in the to_find directory
@@ -96,8 +100,11 @@ imgs_comp_directory = 'imgs_comp'
 to_find_directory = 'to_find'
 to_find_path = os.path.join(working_dir, imgs_comp_directory, to_find_directory)
 
-result_targets = compare_targets_with_to_find(targets_path, to_find_path)
+compare_targets_with_to_find(targets_path, to_find_path)
 
 # Example: Print the results
-for result in result_targets:
-    print(f"Comparison between {result[0]} and {result[1]}: {result[2]}")
+# print(targets)
+
+end_time = time.time()
+execution_time = end_time - start_time
+print(f"Execution time: {execution_time} seconds")
