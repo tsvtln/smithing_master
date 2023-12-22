@@ -49,3 +49,10 @@
 #
 # # Print the resulting list of tuples
 # print(coordinates_list)
+
+# filename = "board_icon_01.png"
+#
+# parts = filename.split("_")[1:]
+# new_name = "_".join(parts)[:-4]
+#
+# print(new_name)
