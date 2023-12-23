@@ -8,8 +8,8 @@ import pytesseract
 
 time.sleep(3)
 start_time = time.time()
-duration = 999999999999999999999999999999  # test
-# duration = 120  # 2min
+# duration = 999999999999999999999999999999  # test
+duration = 120  # 2min
 
 QUAD = False
 MOVED = False
@@ -189,7 +189,7 @@ while True:
                     similarity_index, _ = ssim(target_np, to_find_np, win_size=win_size, full=True)
 
                     # Print the similarity index for each image
-                    print(f"Similarity index with {filename}: {similarity_index}")
+                    # print(f"Similarity index with {filename}: {similarity_index}")
 
                     # You can store the results in the 'targets' list if needed
                     # targets.append((f"target_{i}.png", filename, similarity_index))
@@ -284,7 +284,8 @@ while True:
                 # try:
                 target_numbers[f"{targets[i - 1]}"] = int(text[-2])
                 # except (ValueError, IndexError):
-                #     triple_clicker_plus_4()
+                #     print('GO')
+                #     triple_clicker()
 
                 # test of this text to find what it gives
                 # print(f"Extracted Text {i}:", text)
@@ -411,8 +412,10 @@ while True:
                 text = pytesseract.image_to_string(img, config='--psm 6')
                 # try:
                 target_numbers[f"{targets[i - 1]}"] = int(text[-2])
-                # except ValueError or IndexError:
-                #     triple_clicker_plus_4()
+                # except (ValueError, IndexError):
+                #     print("GO")
+                #     quad_clicker()
+
 
                 # test of this text to find what it gives
                 # print(f"Extracted Text {i}:", text)
@@ -636,6 +639,7 @@ while True:
     elapsed_time = time.time() - start_time
     if elapsed_time >= duration:
         break
+    time.sleep(2)
 
 # print(f"Targets: {targets}")
 # print(f"Target numbers: {target_numbers}")
