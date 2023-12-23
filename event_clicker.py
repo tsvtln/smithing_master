@@ -201,27 +201,27 @@ while True:
                     if similarity_index >= 0.77:
                         if similarity_index >= 0.77:
                             filename = filename[:-4]
-                            if filename in moved_names:
-                                if filename == 'pandelk':
-                                    filename = 'pandelka'
-                                elif filename == 'ginge':
-                                    filename = 'ginger'
-                                elif filename == 'can':
-                                    filename = 'cane'
-                                elif filename == 'bal':
-                                    filename = 'ball'
-                                elif filename == 'cir':
-                                    filename = 'circ'
-                                elif filename == 'part':
-                                    filename = 'party'
-                                elif filename == 'pine_con':
-                                    filename = 'pine_cone'
-                                elif filename == 'soc':
-                                    filename = 'sock'
-                                elif filename == 'sta':
-                                    filename = 'star'
-                                elif filename == 'wra':
-                                    filename = 'wrap'
+                            # if filename in moved_names:
+                            if filename == 'pandelk':
+                                filename = 'pandelka'
+                            elif filename == 'ginge':
+                                filename = 'ginger'
+                            elif filename == 'can':
+                                filename = 'cane'
+                            elif filename == 'bal':
+                                filename = 'ball'
+                            elif filename == 'cir':
+                                filename = 'circ'
+                            elif filename == 'part':
+                                filename = 'party'
+                            elif filename == 'pine_con':
+                                filename = 'pine_cone'
+                            elif filename == 'soc':
+                                filename = 'sock'
+                            elif filename == 'sta':
+                                filename = 'star'
+                            elif filename == 'wra':
+                                filename = 'wrap'
                             targets.append(filename)
                         break
 
@@ -365,27 +365,27 @@ while True:
                     similarity_index = float(f"{similarity_index:.2f}")
                     if similarity_index >= 0.77:
                         filename = filename[:-4]
-                        if filename in moved_names:
-                            if filename == 'pandelk':
-                                filename = 'pandelka'
-                            elif filename == 'ginge':
-                                filename = 'ginger'
-                            elif filename == 'can':
-                                filename = 'cane'
-                            elif filename == 'bal':
-                                filename = 'ball'
-                            elif filename == 'cir':
-                                filename = 'circ'
-                            elif filename == 'part':
-                                filename = 'party'
-                            elif filename == 'pine_con':
-                                filename = 'pine_cone'
-                            elif filename == 'soc':
-                                filename = 'sock'
-                            elif filename == 'sta':
-                                filename = 'star'
-                            elif filename == 'wra':
-                                filename = 'wrap'
+                        # if filename in moved_names:
+                        if filename == 'pandelk':
+                            filename = 'pandelka'
+                        elif filename == 'ginge':
+                            filename = 'ginger'
+                        elif filename == 'can':
+                            filename = 'cane'
+                        elif filename == 'bal':
+                            filename = 'ball'
+                        elif filename == 'cir':
+                            filename = 'circ'
+                        elif filename == 'part':
+                            filename = 'party'
+                        elif filename == 'pine_con':
+                            filename = 'pine_cone'
+                        elif filename == 'soc':
+                            filename = 'sock'
+                        elif filename == 'sta':
+                            filename = 'star'
+                        elif filename == 'wra':
+                            filename = 'wrap'
                         targets.append(filename)
                         break
 
