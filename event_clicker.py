@@ -5,11 +5,16 @@ from skimage.metrics import structural_similarity as ssim
 import numpy as np
 import time
 import pytesseract
+import cv2
+import re
 
 time.sleep(3)
 start_time = time.time()
 # duration = 999999999999999999999999999999  # test
 duration = 120  # 2min
+current = 0
+last_execution_time = 0
+total_last = 0
 
 QUAD = False
 MOVED = False
@@ -64,6 +69,29 @@ icon_coordinates = {
     'icon_29': (1024, 869),
     'icon_30': (1104, 869),
 }
+
+
+def run_counter():
+    global current
+    while True:
+        yield int(current + 1)
+        current += 1
+
+
+counter_generator = run_counter()
+
+
+def extract_numbers_from_string(input_string):
+    # Regex to get a digit
+    numbers = re.findall(r'\d*[2-4]\d*', input_string)
+    numbers = list(map(int, numbers))
+    try:
+        v = int(numbers[0])
+    except IndexError:
+        v = 4
+
+    return v
+
 
 while True:
     # Take a screenshot
@@ -121,6 +149,7 @@ while True:
 
     # print(f"THIS IS QUAD STATE {QUAD}")
 
+
     class TripleImageManipulator:
         """
         img info
@@ -146,7 +175,6 @@ while True:
                 target_image = scns.crop(region)
                 target_image_path = os.path.join(td, f'target_{i + 1}.png')
                 target_image.save(target_image_path)
-
 
         @staticmethod
         def extract_targets_plus_4(screenshot_path, td):  # td = targets dir
@@ -198,10 +226,9 @@ while True:
                     # You can store the results in the 'targets' list if needed
                     # targets.append((f"target_{i}.png", filename, similarity_index))
                     similarity_index = float(f"{similarity_index:.2f}")
-                    if similarity_index >= 0.77:
-                        if similarity_index >= 0.77:
-                            filename = filename[:-4]
-                            # if filename in moved_names:
+                    if similarity_index >= 0.75:
+                        filename = filename[:-4]
+                        if filename in moved_names:
                             if filename == 'pandelk':
                                 filename = 'pandelka'
                             elif filename == 'ginge':
@@ -222,7 +249,7 @@ while True:
                                 filename = 'star'
                             elif filename == 'wra':
                                 filename = 'wrap'
-                            targets.append(filename)
+                        targets.append(filename)
                         break
 
         @staticmethod
@@ -286,6 +313,9 @@ while True:
             # for windows). Get the installation from: https://github.com/tesseract-ocr/tesseract
             pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
+            # default location for linux/*buntu
+            pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
+
             # 3ple target loader
             # Load the images
             for i in range(1, 4):
@@ -300,14 +330,63 @@ while True:
                 # Use Tesseract OCR to extract text
                 text = pytesseract.image_to_string(img, config='--psm 6')
 
-                # try:
-                target_numbers[f"{targets[i - 1]}"] = int(text[-2])
+                text = extract_numbers_from_string(text)
+                if text < 2:
+                    text = 4
+                target_numbers[f"{targets[i - 1]}"] = text
                 # except (ValueError, IndexError):
                 #     print('GO')
                 #     triple_clicker()
 
                 # test of this text to find what it gives
                 # print(f"Extracted Text {i}:", text)
+            # """comp extract"""
+            # target_path = os.path.join(working_dir, 'target_numbers')
+            # tfd = os.path.join(working_dir, 'screenshots')
+            # txt = ''
+            #
+            # for i in range(1, 4):
+            #     # Load the target image
+            #     tp = os.path.join(target_path, f"target_number_{i}.png")
+            #     target_image = Image.open(tp)
+            #
+            #     # Loop through images in the to_find directory
+            #     for filename in os.listdir(tfd):
+            #         image_path = os.path.join(tfd, filename)
+            #         skip_images = ['crop.png', 'level_screen.png', 'crop_board.png']
+            #         if filename in skip_images:
+            #             continue
+            #
+            #         # Load the image from to_find directory
+            #         to_find_image = Image.open(image_path)
+            #
+            #         # Resize the target image to match the dimensions of the to_find image
+            #         target_image_resized = target_image.resize(to_find_image.size)
+            #
+            #         # Convert images to numpy arrays
+            #         target_np = np.array(target_image_resized)
+            #         to_find_np = np.array(to_find_image)
+            #
+            #         # Calculate Structural Similarity Index (SSI) with a smaller win_size
+            #         smaller_side = min(target_np.shape[0], target_np.shape[1], to_find_np.shape[0], to_find_np.shape[1])
+            #         win_size = min(smaller_side, 3)  # Set to 5 or any odd value less than or equal to the smaller side
+            #         similarity_index, _ = ssim(target_np, to_find_np, win_size=win_size, full=True)
+            #
+            #         # Print the similarity index for each image
+            #         # print(f"Similarity index with {filename}: {similarity_index}")
+            #
+            #         # You can store the results in the 'targets' list if needed
+            #         # targets.append((f"target_{i}.png", filename, similarity_index))
+            #         similarity_index = float(f"{similarity_index:.2f}")
+            #         if similarity_index >= 0.75:
+            #             if filename == 'number_1.png':
+            #                 txt = 2
+            #             elif filename == 'number_2.png' or filename == 'number_2_2.png':
+            #                 txt = 3
+            #             elif filename == 'number_3.png':
+            #                 txt = 4
+            #             target_numbers[f"{targets[i - 1]}"] = txt
+            #             break
 
 
     class QuadImageManipulator:
@@ -363,29 +442,29 @@ while True:
                     # You can store the results in the 'targets' list if needed
                     # targets.append((f"target_{i}.png", filename, similarity_index))
                     similarity_index = float(f"{similarity_index:.2f}")
-                    if similarity_index >= 0.77:
+                    if similarity_index >= 0.75:
                         filename = filename[:-4]
-                        # if filename in moved_names:
-                        if filename == 'pandelk':
-                            filename = 'pandelka'
-                        elif filename == 'ginge':
-                            filename = 'ginger'
-                        elif filename == 'can':
-                            filename = 'cane'
-                        elif filename == 'bal':
-                            filename = 'ball'
-                        elif filename == 'cir':
-                            filename = 'circ'
-                        elif filename == 'part':
-                            filename = 'party'
-                        elif filename == 'pine_con':
-                            filename = 'pine_cone'
-                        elif filename == 'soc':
-                            filename = 'sock'
-                        elif filename == 'sta':
-                            filename = 'star'
-                        elif filename == 'wra':
-                            filename = 'wrap'
+                        if filename in moved_names:
+                            if filename == 'pandelk':
+                                filename = 'pandelka'
+                            elif filename == 'ginge':
+                                filename = 'ginger'
+                            elif filename == 'can':
+                                filename = 'cane'
+                            elif filename == 'bal':
+                                filename = 'ball'
+                            elif filename == 'cir':
+                                filename = 'circ'
+                            elif filename == 'part':
+                                filename = 'party'
+                            elif filename == 'pine_con':
+                                filename = 'pine_cone'
+                            elif filename == 'soc':
+                                filename = 'sock'
+                            elif filename == 'sta':
+                                filename = 'star'
+                            elif filename == 'wra':
+                                filename = 'wrap'
                         targets.append(filename)
                         break
 
@@ -426,10 +505,14 @@ while True:
                 os.makedirs(targets_path)
             QuadImageManipulator.extract_number_of_targets(screenshot_dir, targets_number_path)
 
+            """tesseract extract"""
             # Set the path to the Tesseract executable
             # (modify this based on your installation; bellow is the default location
             # for windows). Get the installation from: https://github.com/tesseract-ocr/tesseract
-            pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+            # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+            # default location for linux/*buntu
+            pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
 
             # 3ple target loader
             # Load the images
@@ -439,20 +522,75 @@ while True:
                 open_image = os.path.join(image_path, f"target_number_{i}.png")
                 img = Image.open(open_image)
 
+                # Convert PIL Image to NumPy array
+                img_np = np.array(img)
+
+                img_resized = cv2.resize(img_np, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+
                 # Preprocess the image (convert to grayscale)
-                img = img.convert("L")
+                img_resized = cv2.cvtColor(img_resized, cv2.COLOR_BGR2GRAY)
 
                 # Use Tesseract OCR to extract text
-                text = pytesseract.image_to_string(img, config='--psm 6')
-                # try:
-                target_numbers[f"{targets[i - 1]}"] = int(text[-2])
+                text = pytesseract.image_to_string(img_resized, config='--psm 6')
+                # print(f"This is text {text}")
+                text = extract_numbers_from_string(text)
+                if text < 2:
+                    text = 4
+                target_numbers[f"{targets[i - 1]}"] = text
                 # except (ValueError, IndexError):
                 #     print("GO")
                 #     quad_clicker()
 
-
                 # test of this text to find what it gives
                 # print(f"Extracted Text {i}:", text)
+            #
+            # """comp extract"""
+            # target_path = os.path.join(working_dir, 'target_numbers')
+            # tfd = os.path.join(working_dir, 'screenshots')
+            # txt = ''
+            #
+            # for i in range(1, 5):
+            #     # Load the target image
+            #     tp = os.path.join(target_path, f"target_number_{i}.png")
+            #     target_image = Image.open(tp)
+            #
+            #     # Loop through images in the to_find directory
+            #     for filename in os.listdir(tfd):
+            #         image_path = os.path.join(tfd, filename)
+            #         skip_images = ['crop.png', 'level_screen.png', 'crop_board.png']
+            #         if filename in skip_images:
+            #             continue
+            #
+            #         # Load the image from to_find directory
+            #         to_find_image = Image.open(image_path)
+            #
+            #         # Resize the target image to match the dimensions of the to_find image
+            #         target_image_resized = target_image.resize(to_find_image.size)
+            #
+            #         # Convert images to numpy arrays
+            #         target_np = np.array(target_image_resized)
+            #         to_find_np = np.array(to_find_image)
+            #
+            #         # Calculate Structural Similarity Index (SSI) with a smaller win_size
+            #         smaller_side = min(target_np.shape[0], target_np.shape[1], to_find_np.shape[0], to_find_np.shape[1])
+            #         win_size = min(smaller_side, 3)  # Set to 5 or any odd value less than or equal to the smaller side
+            #         similarity_index, _ = ssim(target_np, to_find_np, win_size=win_size, full=True)
+            #
+            #         # Print the similarity index for each image
+            #         # print(f"Similarity index with {filename}: {similarity_index}")
+            #
+            #         # You can store the results in the 'targets' list if needed
+            #         # targets.append((f"target_{i}.png", filename, similarity_index))
+            #         similarity_index = float(f"{similarity_index:.2f}")
+            #         if similarity_index >= 0.75:
+            #             if filename == 'number_1.png' or filename == 'number_1_2.png':
+            #                 txt = 2
+            #             elif filename == 'number_2.png' or filename == 'number_2_2.png':
+            #                 txt = 3
+            #             elif filename == 'number_3.png' or filename == 'number_3_2.png' or filename == 'number_3_3.png':
+            #                 txt = 4
+            #             target_numbers[f"{targets[i - 1]}"] = txt
+            #             break
 
 
     find_triple_or_quad(screenshot_dir)
@@ -475,6 +613,7 @@ while True:
 
         # Extract the numbers from the target values
         TripleImageManipulator.extract_numbers_of_targets_to_values()
+
 
     def triple_clicker_plus_4():
         # Bellow is 3ple target initialization + 4 px
@@ -515,8 +654,8 @@ while True:
         quad_clicker()
 
 
-    # get board images locations
     def get_board_images(screenshot_path):
+        # get board images locations
         screenshot_path = os.path.join(screenshot_path, 'level_screen.png')
         scns = Image.open(screenshot_path)  # scns = screenshot
         target_regions = [
@@ -592,7 +731,8 @@ while True:
                 # Print the similarity index for each image
                 similarity_index_formatted = float(f"{similarity_index:.2f}")
                 if similarity_index_formatted >= 0.90:
-                    # print(f"Similarity index between {board_icon} and {to_find_icon}: {similarity_index_formatted:.2f}")
+                    # print(f"Similarity index between {board_icon} and
+                    # {to_find_icon}: {similarity_index_formatted:.2f}")
                     found_icon_name = to_find_icon[:-4]
                     if found_icon_name in targets:
                         target_numbers[found_icon_name] -= 1
@@ -608,6 +748,7 @@ while True:
                         # print(f"Found icon name: {found_icon_name}")
                         board_icon_coordinates[found_icon_name].append(coordinates_of_icon)
                     break
+
 
     def test_if_moved_board(screenshot_path):
         global MOVED
@@ -648,6 +789,7 @@ while True:
         else:
             MOVED = True
 
+
     moved_dir_board = os.path.join(working_dir, 'board_dump')
     test_if_moved_board(moved_dir_board)
 
@@ -670,6 +812,12 @@ while True:
             pyautogui.leftClick(target_x, target_y)
             # time.sleep(0.5)
 
+    print(f"run {next(counter_generator)}")
+    end_time = time.time()
+    execution_time = (end_time - start_time) - total_last
+    last_execution_time = execution_time
+    total_last += last_execution_time - 2
+    print(f"Execution time: {execution_time:.2f} seconds")
     elapsed_time = time.time() - start_time
     if elapsed_time >= duration:
         break
@@ -678,6 +826,3 @@ while True:
 # print(f"Targets: {targets}")
 # print(f"Target numbers: {target_numbers}")
 # print(f"Icon coordinates: {board_icon_coordinates}")
-end_time = time.time()
-execution_time = end_time - start_time
-print(f"Execution time: {execution_time} seconds")
