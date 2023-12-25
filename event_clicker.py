@@ -584,7 +584,7 @@ while True:
 
     # Set the paths to the board and to_find directories
     board_icons_directory = 'board_dump'
-    to_find_icons_directory = 'to_find_board_moved' if MOVED else to_find_icons_directory = 'to_find_board'
+    to_find_icons_directory = 'to_find_board_moved' if MOVED else 'to_find_board'
     board_icons_path = os.path.join(working_dir, board_icons_directory)
     to_find_icons_path = os.path.join(working_dir, 'imgs_comp', to_find_icons_directory)
     # Compare board icons with to_find icons
