@@ -4,7 +4,7 @@ Automation tool(s)
 
 ## Features event clicker
 
-- 3 day event to auto detect icon type and click based on the amount specified bellow the icon.
+- 3-day event to auto-detect icon type and click based on the amount specified bellow the icon.
 #### Requirements
 Requirements executable inside `requirements.sh`
 ```
