@@ -4,7 +4,6 @@ import numpy as np
 import time
 import pytesseract
 import cv2
-import re
 from PIL import Image
 from skimage.metrics import structural_similarity as ssim
 
