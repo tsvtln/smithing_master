@@ -35,3 +35,7 @@ opencv-python
 tesseract executable @  https://github.com/tesseract-ocr/tesseract
 ```
 Works on 1920x1080 resolution with bluestacks on windowed fullscreen mode.
+
+Example video:
+  
+[![](https://img.youtube.com/vi/KsxrsJn8O5o/hqdefault.jpg)](https://www.youtube.com/embed/KsxrsJn8O5o)
