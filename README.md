@@ -37,5 +37,8 @@ tesseract executable @  https://github.com/tesseract-ocr/tesseract
 Works on 1920x1080 resolution with bluestacks on windowed fullscreen mode.
 
 Example video:
-  
-[![](https://img.youtube.com/vi/KsxrsJn8O5o/hqdefault.jpg)](https://www.youtube.com/embed/KsxrsJn8O5o)
+
+https://github.com/tsvtln/smithing_master/assets/112159858/77c2f497-7035-46ea-a816-884a888b7858
+
+
+
