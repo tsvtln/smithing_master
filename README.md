@@ -19,6 +19,7 @@ tesseract executable @  https://github.com/tesseract-ocr/tesseract
 
 ## Features of `auto trove`
 - Performs automatic mining operation based on provided input.
+- Automatic submition of daily bounties.
 - Takes note of collected gems and sundries and provides an output after the mining operation of what is collected.
 - Detects if an upgrade gem is found and waits on user input to further continue mining operation.
 
