@@ -14,6 +14,7 @@ class Miner:
         self.workdir = Miner.workdir()
         self.collected_gems = {}
         self.collected_sundries = {}
+        self.found_orbs = 0
         self.gem = False
         self.unlucky = False
         self.tip = False
@@ -62,6 +63,10 @@ class Miner:
                 print('\n#### Sundries found ####')
                 for sundry_name, count in self.collected_sundries.items():
                     print(f'{sundry_name}: {count}')
+
+            if self.found_orbs > 0:
+                print(f'\n#### Found Orbs: {self.found_orbs} ####')
+
         else:
             time.sleep(3)
             self.click()
@@ -101,50 +106,72 @@ class Miner:
 
     def sort_collected_gems(self, gem_name):
         gem_name_lower = gem_name.lower()
-        # gems
-        gems = [
-            'anemo',
-            'pyro',
-            'electro',
-            'geo',
-            'hydro'
+        orbs = [
+            'howling wind',
+            'scudding clouds',
+            'raging gale',
+            'fiery flame',
+            'dying ember',
+            'everlasting blaze',
+            'lightning storm',
+            'lurid thunderbolt',
+            'rolling thunder',
+            'pearly dew',
+            'surging flood',
+            'roaring waves',
+            'fertile land',
+            'breathing wilderness',
+            'barren wasteland'
         ]
-        found_gem = next((gem for gem in gems if gem in gem_name_lower), None)
-        if found_gem:
-            self.gem = True
-            found_gem = found_gem.capitalize()
-            if found_gem not in self.collected_gems.keys():
-                self.collected_gems[found_gem] = {gem_name: 1}
-            else:
-                if gem_name not in self.collected_gems[found_gem].keys():
-                    self.collected_gems[found_gem][gem_name] = 1
-                else:
-                    self.collected_gems[found_gem][gem_name] += 1
+        if gem_name in orbs:
+            self.click()
+            self.mine_counter += 1
+            self.found_orbs += 1
         else:
-            # sundries
-            self.gem = False
-            sundries = [
-                'Mushroom',
-                'Mushroom Cluster',
-                'Tattered Boot',
-                'Plain Boot',
-                'Patterned Boot',
-                'Glass Bottle',
-                'Silvered Bottle',
-                'Gilded Bottle',
-                'Moneybag',
-                'Money Chest',
-                'Eggshell',
-                'Rusty Hammer',
-                'Battered Forging',
-                'Ore Shard'
+            # gems
+            gems = [
+                'anemo',
+                'pyro',
+                'electro',
+                'geo',
+                'hydro'
             ]
-            sundry_found = next((sundry for sundry in sundries if sundry in gem_name), None)
-            if sundry_found:
-                if sundry_found not in self.collected_sundries.keys():
-                    self.collected_sundries[sundry_found] = 1
+            found_gem = next((gem for gem in gems if gem in gem_name_lower), None)
+            if found_gem:
+                self.gem = True
+                found_gem = found_gem.capitalize()
+                if found_gem not in self.collected_gems.keys():
+                    self.collected_gems[found_gem] = {gem_name: 1}
                 else:
-                    self.collected_sundries[sundry_found] += 1
+                    if gem_name not in self.collected_gems[found_gem].keys():
+                        self.collected_gems[found_gem][gem_name] = 1
+                    else:
+                        self.collected_gems[found_gem][gem_name] += 1
+            else:
+                # sundries
+                self.gem = False
+                sundries = [
+                    'Mushroom',
+                    'Mushroom Cluster',
+                    'Tattered Boot',
+                    'Plain Boot',
+                    'Patterned Boot',
+                    'Glass Bottle',
+                    'Silvered Bottle',
+                    'Gilded Bottle',
+                    'Moneybag',
+                    'Money Chest',
+                    'Eggshell',
+                    'Rusty Hammer',
+                    'Battered Forging',
+                    'Ore Shard'
+                ]
+                sundry_found = next((sundry for sundry in sundries if sundry in gem_name), None)
+                if sundry_found:
+                    if sundry_found not in self.collected_sundries.keys():
+                        self.collected_sundries[sundry_found] = 1
+                    else:
+                        self.collected_sundries[sundry_found] += 1
 
     def upgrade_finder(self):
         # crop region where upgrade indicator is
