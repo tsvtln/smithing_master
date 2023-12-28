@@ -16,6 +16,7 @@ class Miner:
         self.collected_sundries = {}
         self.gem = False
         self.unlucky = False
+        self.tip = False
 
     @staticmethod
     def workdir():
@@ -38,6 +39,10 @@ class Miner:
                 else:
                     # sell item
                     x, y = 924, 831
+                    pyautogui.leftClick(x, y)
+                self.tip_finder()
+                if self.tip:
+                    x, y = 1053, 659
                     pyautogui.leftClick(x, y)
         if self.mine_counter == 0:
             print('Mining operation completed.\n')
@@ -200,3 +205,30 @@ class Miner:
             self.unlucky = True
         else:
             self.unlucky = False
+
+    def tip_finder(self):
+        """ Find if there's a tip pop-up."""
+        self.take_screenshot()
+        tip_region = (901, 357, 976, 387)
+        open_state_screenshot = Image.open(os.path.join(self.workdir, 'collector', 'current_state.png'))
+        crop_tip_region = open_state_screenshot.crop(tip_region)
+        crop_tip_region.save(os.path.join(self.workdir, 'collector', 'tip_region.png'))
+
+        load_tip_compare = Image.open(os.path.join(self.workdir, 'collector', 'tip_region.png'))
+        load_cropped_tip = Image.open(os.path.join(self.workdir, 'collector', 'comp', 'tip_compare.png'))
+
+        # Convert to np
+        load_tip_compare_np = np.array(load_tip_compare)
+        load_cropped_tip_np = np.array(load_cropped_tip)
+
+        # Calculate Structural Similarity Index (SSI) with a smaller win_size
+        smaller_side = min(load_cropped_tip_np.shape[0], load_cropped_tip_np.shape[1],
+                           load_tip_compare_np.shape[0], load_tip_compare_np.shape[1])
+        win_size = min(smaller_side, 3)
+        similarity_index, _ = ssim(load_tip_compare_np, load_cropped_tip_np, win_size=win_size, full=True)
+        similarity_index = float(f"{similarity_index:.2f}")
+
+        if similarity_index >= 0.80:
+            self.tip = True
+        else:
+            self.tip = False
