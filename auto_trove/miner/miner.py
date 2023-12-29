@@ -60,7 +60,6 @@ class Miner:
                     x, y = 1188, 986
                     pyautogui.leftClick(x, y)
                     time.sleep(3)
-                    self.click()
                 if not self.orb:
                     self.tip_finder()
                     if self.tip:
@@ -68,41 +67,45 @@ class Miner:
                         pyautogui.leftClick(x, y)
         if self.mine_counter == 0:
             self.do_it = False
-            print('Mining operation completed.\n')
 
-            if self.collected_gems:
-                # Print Gems found
-                print('#### Gems found ####')
-                for i, (gem_type, gem_data) in enumerate(self.collected_gems.items()):
-                    if i > 0:
-                        print()
-                    print(f'{gem_type} gems: {sum(gem_data.values())}')
-                    for gem_name, count in gem_data.items():
-                        print(f'{gem_name}: {count}')
-
-            if self.collected_sundries:
-                # Print Sundries found
-                print('\n#### Sundries found ####')
-                for sundry_name, count in self.collected_sundries.items():
-                    print(f'{sundry_name}: {count}')
-
-            if self.found_orbs > 0:
-                print(f'\n#### Found Orbs: {self.found_orbs} ####')
-                for orb in self.collected_orbs:
-                    print(orb)
-
-        if self.do_it:
-            time.sleep(3)
-            self.click()
+        time.sleep(3)
+        self.click()
 
     def click(self):
-        # Click performer (miner)
-        click_x = 1024
-        click_y = 875
-        self.mine_counter -= 1
-        pyautogui.leftClick(click_x, click_y)
-        time.sleep(3)
-        self.worker()
+        if not self.do_it:
+            self.printer()
+        else:
+            # Click performer (miner)
+            click_x = 1024
+            click_y = 875
+            self.mine_counter -= 1
+            pyautogui.leftClick(click_x, click_y)
+            time.sleep(3)
+            self.worker()
+
+    def printer(self):
+        print('Mining operation completed.\n')
+
+        if self.collected_gems:
+            # Print Gems found
+            print('#### Gems found ####')
+            for i, (gem_type, gem_data) in enumerate(self.collected_gems.items()):
+                if i > 0:
+                    print()
+                print(f'{gem_type} gems: {sum(gem_data.values())}')
+                for gem_name, count in gem_data.items():
+                    print(f'{gem_name}: {count}')
+
+        if self.collected_sundries:
+            # Print Sundries found
+            print('\n#### Sundries found ####')
+            for sundry_name, count in self.collected_sundries.items():
+                print(f'{sundry_name}: {count}')
+
+        if self.found_orbs > 0:
+            print(f'\n#### Found Orbs: {self.found_orbs} ####')
+            for orb in self.collected_orbs:
+                print(orb)
 
     def take_screenshot(self):
         # Takes screenshot of the current state of the game.
