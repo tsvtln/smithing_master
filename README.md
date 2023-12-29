@@ -1,7 +1,11 @@
 # Smithing Master
 Automation tool(s)
 
+* [Auto Trove Section](#auto-trove)
+* [Event Clicker Section](#event-clicker)
+
 ## Features of `event clicker`
+<a name="event-clicker"></a>
 
 - 3-day event to auto-detect icon type and click based on the amount specified bellow the icon.
 #### Requirements
@@ -18,6 +22,7 @@ tesseract executable @  https://github.com/tesseract-ocr/tesseract
 
 
 ## Features of `auto trove`
+<a name="auto-trove"></a>
 - Performs automatic mining operation based on provided input.
 - Automatic submition of daily bounties.
 - Takes note of collected gems and sundries and provides an output after the mining operation of what is collected.
