@@ -160,3 +160,4 @@ cython_debug/
 .idea/
 auto_trove/collector/current_state.png
 auto_trove/icon.ico
+auto_trove/setup.ps

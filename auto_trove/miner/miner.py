@@ -16,6 +16,7 @@ class Miner:
         self.workdir = Miner.workdir()
         self.collected_gems = {}
         self.collected_sundries = {}
+        self.collected_orbs = []
         self.found_orbs = 0
         self.gem = False
         self.unlucky = False
@@ -29,7 +30,8 @@ class Miner:
             return os.path.abspath(os.path.join(os.path.dirname(sys.executable)))
         else:
             # Return this path if program is in dev mode or .py instance.
-            return os.path.abspath(os.path.join(os.path.dirname(__file__)))
+            # return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+            return os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
     def worker(self):
         # Main initializer function
@@ -38,26 +40,31 @@ class Miner:
         if not self.unlucky:
             gem_name = self.get_gem_name()
             self.sort_collected_gems(gem_name)
-            upgrade_finder = self.upgrade_finder()
+            if not self.orb:
+                upgrade_finder = self.upgrade_finder()
+            else:
+                upgrade_finder = False
             if not upgrade_finder:
                 if self.gem:
                     # sell item
                     x, y = 833, 831
                     pyautogui.leftClick(x, y)
-                elif not self.gem:
+                elif not self.gem and not self.orb:
                     # sell item
                     x, y = 924, 831
                     pyautogui.leftClick(x, y)
                 elif self.orb and self.mine_counter > 0:
-                    self.mine_counter += 1
+                    self.collected_orbs.append(gem_name)
                     self.found_orbs += 1
-                    x, y = 1177, 983
+                    x, y = 1188, 986
                     pyautogui.leftClick(x, y)
+                    time.sleep(3)
                     self.click()
-                self.tip_finder()
-                if self.tip:
-                    x, y = 1208, 1017
-                    pyautogui.leftClick(x, y)
+                if not self.orb:
+                    self.tip_finder()
+                    if self.tip:
+                        x, y = 1208, 1017
+                        pyautogui.leftClick(x, y)
         if self.mine_counter == 0:
             print('Mining operation completed.\n')
 
@@ -79,6 +86,7 @@ class Miner:
 
             if self.found_orbs > 0:
                 print(f'\n#### Found Orbs: {self.found_orbs} ####')
+                print('\n'.join(self.collected_orbs))
 
         else:
             time.sleep(3)
@@ -176,6 +184,7 @@ class Miner:
                     self.collected_sundries[sundry_found] += 1
         else:
             self.orb = True
+            self.gem = False
 
     def upgrade_finder(self):
         # Crop region where upgrade indicator is.
