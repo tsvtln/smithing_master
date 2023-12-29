@@ -35,6 +35,7 @@ opencv-python
 tesseract executable @  https://github.com/tesseract-ocr/tesseract
 ```
 Works on 1920x1080 resolution with bluestacks on windowed fullscreen mode.
+
 Executable: https://github.com/tsvtln/smithing_master/releases/tag/v1.0.0
 
 Example video:
