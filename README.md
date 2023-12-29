@@ -1,6 +1,8 @@
 # Smithing Master
 Automation tool(s)
 
+
+
 * [Event Clicker Section](#event-clicker)
 * [Auto Trove Section](#auto-trove)
 
@@ -42,9 +44,10 @@ tesseract executable @  https://github.com/tesseract-ocr/tesseract
 ```
 Works on 1920x1080 resolution with bluestacks on windowed fullscreen mode.
 
-Executable: https://github.com/tsvtln/smithing_master/releases
+Executable:  [![Downloads](https://img.shields.io/badge/download-all%20releases-brightgreen.svg)]([https://github.com/tesseract-ocr/tesseract/releases/](https://github.com/tsvtln/smithing_master/releases))
 
-If you download the executable you still need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe):  https://github.com/tesseract-ocr/tesseract
+- If you download the executable you still need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe):  https://github.com/tesseract-ocr/tesseract
+- The installer is at: https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.3.20231005.exe
 
 Example video:
 
