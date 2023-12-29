@@ -1,8 +1,9 @@
 # Smithing Master
 Automation tool(s)
 
-* [Auto Trove Section](#auto-trove)
 * [Event Clicker Section](#event-clicker)
+* [Auto Trove Section](#auto-trove)
+
 
 ## Features of `event clicker`
 <a name="event-clicker"></a>
