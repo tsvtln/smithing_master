@@ -18,6 +18,7 @@ class Miner:
         self.collected_sundries = {}
         self.collected_orbs = []
         self.found_orbs = 0
+        self.do_it = True
         self.gem = False
         self.unlucky = False
         self.tip = False
@@ -66,6 +67,7 @@ class Miner:
                         x, y = 1208, 1017
                         pyautogui.leftClick(x, y)
         if self.mine_counter == 0:
+            self.do_it = False
             print('Mining operation completed.\n')
 
             if self.collected_gems:
@@ -86,9 +88,10 @@ class Miner:
 
             if self.found_orbs > 0:
                 print(f'\n#### Found Orbs: {self.found_orbs} ####')
-                print('\n'.join(self.collected_orbs))
+                for orb in self.collected_orbs:
+                    print(orb)
 
-        else:
+        if self.do_it:
             time.sleep(3)
             self.click()
 
