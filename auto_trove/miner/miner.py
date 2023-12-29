@@ -1,10 +1,12 @@
+import sys
+
 import pyautogui
 import os
 import numpy as np
 import time
 import pytesseract
 import cv2
-from PIL import Image
+from PIL import Image, ImageEnhance
 from skimage.metrics import structural_similarity as ssim
 
 
@@ -18,14 +20,19 @@ class Miner:
         self.gem = False
         self.unlucky = False
         self.tip = False
+        self.orb = False
 
     @staticmethod
     def workdir():
-        cd = os.path.dirname(os.path.abspath(__file__))
-        pd = os.path.abspath(os.path.join(cd, os.pardir))
-        return pd
+        if getattr(sys, 'frozen', False):
+            # Find if program is running as a standalone executable
+            return os.path.abspath(os.path.join(os.path.dirname(sys.executable)))
+        else:
+            # Return this path if program is in dev mode or .py instance.
+            return os.path.abspath(os.path.join(os.path.dirname(__file__)))
 
     def worker(self):
+        # Main initializer function
         self.take_screenshot()
         self.unlucky_finder()
         if not self.unlucky:
@@ -37,13 +44,19 @@ class Miner:
                     # sell item
                     x, y = 833, 831
                     pyautogui.leftClick(x, y)
-                else:
+                elif not self.gem:
                     # sell item
                     x, y = 924, 831
                     pyautogui.leftClick(x, y)
+                elif self.orb and self.mine_counter > 0:
+                    self.mine_counter += 1
+                    self.found_orbs += 1
+                    x, y = 1177, 983
+                    pyautogui.leftClick(x, y)
+                    self.click()
                 self.tip_finder()
                 if self.tip:
-                    x, y = 1053, 659
+                    x, y = 1208, 1017
                     pyautogui.leftClick(x, y)
         if self.mine_counter == 0:
             print('Mining operation completed.\n')
@@ -54,7 +67,7 @@ class Miner:
                 for i, (gem_type, gem_data) in enumerate(self.collected_gems.items()):
                     if i > 0:
                         print()
-                    print(f'{gem_type} gems:')
+                    print(f'{gem_type} gems: {sum(gem_data.values())}')
                     for gem_name, count in gem_data.items():
                         print(f'{gem_name}: {count}')
 
@@ -72,6 +85,7 @@ class Miner:
             self.click()
 
     def click(self):
+        # Click performer (miner)
         click_x = 1024
         click_y = 875
         self.mine_counter -= 1
@@ -80,6 +94,7 @@ class Miner:
         self.worker()
 
     def take_screenshot(self):
+        # Takes screenshot of the current state of the game.
         screenshot_dir = 'collector'
         screenshot_name = 'current_state.png'
         screenshot_path = os.path.join(self.workdir, screenshot_dir, screenshot_name)
@@ -88,7 +103,7 @@ class Miner:
 
     def get_gem_name(self):
         # Crop the gem name
-        name_region = (856, 400, 1034, 431)
+        name_region = (829, 399, 1057, 427)
         state_screenshot_path = os.path.join(self.workdir, 'collector', 'current_state.png')
         open_state_screenshot = Image.open(state_screenshot_path)
         crop_gem_name = open_state_screenshot.crop(name_region)
@@ -99,46 +114,48 @@ class Miner:
         cropped_gem_name_png = os.path.join(self.workdir, 'collector', 'cropped_gem_name.png')
         img = Image.open(cropped_gem_name_png)
         img = img.convert('L')
+        img = ImageEnhance.Contrast(img).enhance(2.0)
         _, binary_img = cv2.threshold(np.array(img), 128, 255, cv2.THRESH_BINARY)
         text = pytesseract.image_to_string(Image.fromarray(binary_img), config='--psm 6')
         text = text[:-1]
         return text
 
     def sort_collected_gems(self, gem_name):
+        # This sorts gems into gem dict, sundries into sundries dict or if it's orb, will increase orb counter.
         gem_name_lower = gem_name.lower()
-        orbs = [
-            'howling wind',
-            'scudding clouds',
-            'raging gale',
-            'fiery flame',
-            'dying ember',
-            'everlasting blaze',
-            'lightning storm',
-            'lurid thunderbolt',
-            'rolling thunder',
-            'pearly dew',
-            'surging flood',
-            'roaring waves',
-            'fertile land',
-            'breathing wilderness',
-            'barren wasteland'
+
+        # gems
+        gems = [
+            'anemo',
+            'pyro',
+            'electro',
+            'geo',
+            'hydro'
         ]
-        if gem_name in orbs:
-            self.click()
-            self.mine_counter += 1
-            self.found_orbs += 1
-        else:
-            # gems
-            gems = [
-                'anemo',
-                'pyro',
-                'electro',
-                'geo',
-                'hydro'
-            ]
-            found_gem = next((gem for gem in gems if gem in gem_name_lower), None)
-            if found_gem:
+        sundries = [
+            'Mushroom',
+            'Mushroom Cluster',
+            'Tattered Boot',
+            'Plain Boot',
+            'Patterned Boot',
+            'Glass Bottle',
+            'Silvered Bottle',
+            'Gilded Bottle',
+            'Moneybag',
+            'Money Chest',
+            'Eggshell',
+            'Rusty Hammer',
+            'Battered Forging',
+            'Ore Shard'
+        ]
+        found_gem = next((gem for gem in gems if gem in gem_name_lower), None)
+        sundry_found = next((sundry for sundry in sundries if sundry in gem_name), None)
+
+        if found_gem:
+            gem_spliced = found_gem.split()
+            if gem_spliced[0] in gems:
                 self.gem = True
+                self.orb = False
                 found_gem = found_gem.capitalize()
                 if found_gem not in self.collected_gems.keys():
                     self.collected_gems[found_gem] = {gem_name: 1}
@@ -147,41 +164,28 @@ class Miner:
                         self.collected_gems[found_gem][gem_name] = 1
                     else:
                         self.collected_gems[found_gem][gem_name] += 1
-            else:
-                # sundries
-                self.gem = False
-                sundries = [
-                    'Mushroom',
-                    'Mushroom Cluster',
-                    'Tattered Boot',
-                    'Plain Boot',
-                    'Patterned Boot',
-                    'Glass Bottle',
-                    'Silvered Bottle',
-                    'Gilded Bottle',
-                    'Moneybag',
-                    'Money Chest',
-                    'Eggshell',
-                    'Rusty Hammer',
-                    'Battered Forging',
-                    'Ore Shard'
-                ]
-                sundry_found = next((sundry for sundry in sundries if sundry in gem_name), None)
-                if sundry_found:
-                    if sundry_found not in self.collected_sundries.keys():
-                        self.collected_sundries[sundry_found] = 1
-                    else:
-                        self.collected_sundries[sundry_found] += 1
+        elif sundry_found:
+            # sundries
+            self.gem = False
+            self.orb = False
+
+            if sundry_found:
+                if sundry_found not in self.collected_sundries.keys():
+                    self.collected_sundries[sundry_found] = 1
+                else:
+                    self.collected_sundries[sundry_found] += 1
+        else:
+            self.orb = True
 
     def upgrade_finder(self):
-        # crop region where upgrade indicator is
+        # Crop region where upgrade indicator is.
         upgrade_region = (992, 538, 1044, 578)
         state_screenshot_path = os.path.join(self.workdir, 'collector', 'current_state.png')
         open_state_screenshot = Image.open(state_screenshot_path)
         crop_upgrade_region = open_state_screenshot.crop(upgrade_region)
         crop_upgrade_region.save(os.path.join(self.workdir, 'collector', 'upgrade_region.png'))
 
-        # check if upgradable
+        # Check if upgradable.
         load_image = os.path.join(self.workdir, 'collector', 'upgrade_region.png')
         load_image = Image.open(load_image)
         tfd = os.path.join(self.workdir, 'collector', 'comp')
@@ -210,6 +214,7 @@ class Miner:
                     return False
 
     def unlucky_finder(self):
+        # Finds if the mining action was unlucky; e.g. we mined, but found nothing.
         map_region = (671, 724, 764, 809)
         open_state_screenshot = Image.open(os.path.join(self.workdir, 'collector', 'current_state.png'))
         crop_map_region = open_state_screenshot.crop(map_region)
