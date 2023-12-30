@@ -115,6 +115,7 @@ class Miner:
         take_screenshot = pyautogui.screenshot()
         take_screenshot.save(screenshot_path)
 
+
     def get_gem_name(self):
         # Crop the gem name
         name_region = (829, 399, 1057, 427)
