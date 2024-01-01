@@ -28,6 +28,7 @@ class ScarletBase:
         # riddle book
         self.riddle_book_comp_path = os.path.join(self.workdir, 'collector', 'comp', 'analyze_board', 'riddle.png')
         self.riddle_book_state_path = os.path.join(self.workdir, 'collector', 'analyzation_state', 'riddle_state.png')
+        self.riddle_book_comp_path2 = os.path.join(self.workdir, 'collector', 'comp', 'analyze_board', 'riddle_2.png')
         self.question_save_path = os.path.join(self.workdir, 'collector', 'analyzation_state', 'question.png')
         # collected chest
         self.collected_comp_path = os.path.join(self.workdir, 'collector', 'comp', 'analyze_board', 'collected.png')
