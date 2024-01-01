@@ -195,8 +195,6 @@ class Manipulator(ScarletBase):
         #     print(f"Key: {k}, Value: {v}")
         # print("---------- DEBUG ----------")
 
-
-
     def clicker(self):
         # Performs clicks based on analyzed data
         for tile_number, click_location in self.clickable_locations.items():
@@ -263,6 +261,3 @@ class Manipulator(ScarletBase):
 
     def current_tiles(self):
         return self.tiles
-
-
-

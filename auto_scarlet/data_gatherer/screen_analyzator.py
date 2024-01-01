@@ -126,4 +126,3 @@ class AnalyzeScreen(ScarletBase):
             return True
         else:
             return False
-
