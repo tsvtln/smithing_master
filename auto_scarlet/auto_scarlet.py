@@ -1,4 +1,3 @@
-from manipulator.helper import HelperFunctions
 from manipulator.manipulator import Manipulator
 
 current_level = input('What is your current level?\n')
