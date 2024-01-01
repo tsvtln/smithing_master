@@ -7,12 +7,12 @@ from data_gatherer.screen_analyzator import AnalyzeScreen
 current_level = 3
 auto_scarlet = Manipulator(current_level)
 # tile_scanner = TileScanner(auto_scarlet)
-auto_scarlet.worker()
+# auto_scarlet.worker()
 # input("Press Enter to continue...")
 # print(tile_scanner.tile_recorder())
 
-# screenshooter = TakeScreenshot()
-# screenshooter.take_screenshot()
+screenshooter = TakeScreenshot()
+screenshooter.take_screenshot()
 # #
 # screen_anal = AnalyzeScreen()
 # # #
