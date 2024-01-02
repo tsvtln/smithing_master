@@ -46,7 +46,8 @@ tesseract executable @  https://github.com/tesseract-ocr/tesseract
 ```
 Works on 1920x1080 resolution with bluestacks on windowed fullscreen mode.
 
-Executable:  [![Downloads](https://img.shields.io/badge/download-all%20releases-brightgreen.svg)]([https://github.com/tesseract-ocr/tesseract/releases/](https://github.com/tsvtln/smithing_master/releases))
+
+Executable:  [![Downloads](https://img.shields.io/badge/download-all%20releases-brightgreen.svg)]([https://github.com/tsvtln/smithing_master/releases/download/v1.0.2/auto_trove.zip](https://github.com/tsvtln/smithing_master/releases/download/v1.0.2/auto_trove.zip))
 
 - If you download the executable you still need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe):  https://github.com/tesseract-ocr/tesseract
 - The installer is at: https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.3.20231005.exe
@@ -76,6 +77,11 @@ https://github.com/tsvtln/smithing_master/assets/112159858/77c2f497-7035-46ea-a8
 ○ Need 'Skip' to be selected.
 
 ○ Input your current level.
+
+
+Executable:  [![Downloads](https://img.shields.io/badge/download-all%20releases-brightgreen.svg)]([https://github.com/tsvtln/smithing_master/releases/download/untagged-e5b350b168aabb49f262/Auto_Scarlet.zip](https://github.com/tsvtln/smithing_master/releases/download/untagged-e5b350b168aabb49f262/Auto_Scarlet.zip))
+- If you download the executable you still need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe):  https://github.com/tesseract-ocr/tesseract
+- The installer is at: https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.3.20231005.exe
 
 #### Requirements
 Requirements inside `requirements.txt`
