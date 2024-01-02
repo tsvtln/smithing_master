@@ -9,9 +9,10 @@ from data_gatherer.tile_scanner import TileScanner
 
 
 class Manipulator(ScarletBase):
-    def __init__(self, current_level):
+    def __init__(self, current_level, debug=False):
         super().__init__()
         self.current_level = current_level
+        self.debug = debug
         self.tiles = {}
         self.clickable_locations = {}
         self.tile_number_click_locations = {
@@ -189,11 +190,13 @@ class Manipulator(ScarletBase):
 
         for item in to_del:
             del self.tiles[item]
-        # print("---------- DEBUG ----------")
-        # print(f"Current Level: {self.current_level}")
-        # for k, v in self.tiles.items():
-        #     print(f"Key: {k}, Value: {v}")
-        # print("---------- DEBUG ----------")
+
+        if self.debug:
+            print("---------- DEBUG ----------")
+            print(f"Current Level: {self.current_level}")
+            for k, v in self.tiles.items():
+                print(f"Key: {k}, Value: {v}")
+            print("---------- DEBUG ----------")
 
     def clicker(self):
         # Performs clicks based on analyzed data
