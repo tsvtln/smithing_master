@@ -58,6 +58,7 @@ class HelperFunctions:
             "How many products are sold in the Grocery Stall at most?": "B",
             "How many Secret Stones can be inlaid at most?": "B",
             "How many times can you refine Secret Stones for free every day?": "D",
+            "How many times can you smash the world boss for free every day?": "A",
             "How many times can you smash the world Boss for free every day?": "A",
             "In Guild League, what are the minimum points required for claiming the Guild Rank Reward?": "D",
             "In the [Solo Arena], what does it cost if a player wants to challenge another player?": "C",
