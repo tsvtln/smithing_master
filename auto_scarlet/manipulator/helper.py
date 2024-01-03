@@ -73,7 +73,7 @@ class HelperFunctions:
             "Which currency can be used in Tower Shop?": "B",
             "Which event doesn’t allow Spirit Pets in battles?": "A",
             "Which is a Spirit Pet type?": "D",
-            "Which is the highest equipment quality?": "D",
+            "Which is the highest equipment quality?": "C",
             "Which is the highest Tier in the Solo Arena?": "D",
             "Which item can speed up the Forging Anvil upgrade?": "A",
             "Which item is needed for equipment forging?": "C",

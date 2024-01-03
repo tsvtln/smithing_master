@@ -90,7 +90,7 @@ class Manipulator(ScarletBase):
                         x2, y2 = 944, 737
                         print(f"Fail-Save coordinates have been deployed for {options}.")
                     pyautogui.leftClick(x2, y2)
-                    time.sleep(0.5)
+                    time.sleep(1)
                     pyautogui.leftClick(x1, y1)
                     time.sleep(1)
 
@@ -106,10 +106,10 @@ class Manipulator(ScarletBase):
                 self.current_level += 1
                 x_chest, y_chest = 942, 557
                 pyautogui.leftClick(x_chest, y_chest)
-                time.sleep(1)
+                time.sleep(2)
                 x_close, y_close = 1208, 975
                 pyautogui.leftClick(x_close, y_close)
-                time.sleep(1)
+                time.sleep(2)
                 self.worker()
 
             elif self.current_level == 10:
