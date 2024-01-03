@@ -61,9 +61,10 @@ class Miner:
                     pyautogui.leftClick(x, y)
                     time.sleep(3)
                 if not self.orb:
+                    time.sleep(2)
                     self.tip_finder()
                     if self.tip:
-                        x, y = 1208, 1017
+                        x, y = 1043, 659
                         pyautogui.leftClick(x, y)
         if self.mine_counter == 0:
             self.do_it = False
@@ -114,7 +115,6 @@ class Miner:
         screenshot_path = os.path.join(self.workdir, screenshot_dir, screenshot_name)
         take_screenshot = pyautogui.screenshot()
         take_screenshot.save(screenshot_path)
-
 
     def get_gem_name(self):
         # Crop the gem name
@@ -257,7 +257,7 @@ class Miner:
     def tip_finder(self):
         """ Find if there's a tip pop-up."""
         self.take_screenshot()
-        tip_region = (901, 357, 976, 387)
+        tip_region = (916, 358, 966, 386)
         open_state_screenshot = Image.open(os.path.join(self.workdir, 'collector', 'current_state.png'))
         crop_tip_region = open_state_screenshot.crop(tip_region)
         crop_tip_region.save(os.path.join(self.workdir, 'collector', 'tip_region.png'))
