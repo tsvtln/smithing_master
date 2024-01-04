@@ -104,12 +104,13 @@ class Manipulator(ScarletBase):
                 self.worker()
             elif self.current_level == 5:
                 self.current_level += 1
+                time.sleep(4)
                 x_chest, y_chest = 942, 557
                 pyautogui.leftClick(x_chest, y_chest)
-                time.sleep(2)
+                time.sleep(4)
                 x_close, y_close = 1208, 975
                 pyautogui.leftClick(x_close, y_close)
-                time.sleep(2)
+                time.sleep(4)
                 self.worker()
 
             elif self.current_level == 10:
