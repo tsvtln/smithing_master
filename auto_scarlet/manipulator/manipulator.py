@@ -166,7 +166,8 @@ class Manipulator(ScarletBase):
         pillar_tile_filename = [
             'pillar_tile',
             'pillar_tile_2',
-            'pillar_tile_3'
+            'pillar_tile_3',
+            'pillar_tile_4'
         ]
         self.clickable_locations.clear()
         # Finds which tiles are clickable
@@ -206,7 +207,7 @@ class Manipulator(ScarletBase):
             pyautogui.leftClick(x, y)
             if tile_number in self.tiles.keys():
                 del self.tiles[tile_number]
-            time.sleep(4)
+            time.sleep(1)
             pyautogui.leftClick(x, y)
             time.sleep(3)
             riddle = AnalyzeScreen().riddle_finder()

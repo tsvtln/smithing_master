@@ -49,6 +49,7 @@ class HelperFunctions:
             "At what level is the [Trove Hunt] system unlocked?": "C",
             "At what level is [Wing] system unlocked?": "A",
             "How long does the Pinnacle Arena take each season?": "B",
+            "How long does a season of [Solo Arena] last?": "B",
             "How many Anemo Gems can you collect at most in the Gem Collection?": "D",
             "How many Artifacts can be placed in the Treasure House at most?": "B",
             "How many Bosses are there at most on each floor of the Scarlet Corridor?": "A",
@@ -95,7 +96,8 @@ class HelperFunctions:
             "Which Spirit Pet can’t be synthesized?": "A",
             "What’s the highest title available in Master’s Path?": "C",
             "Which of the following attributes can the wing [Light of Holy Dome] provide?": "B",
-            "How long does the [Pinnacle Arena] take each season?": "B"
+            "How long does the [Pinnacle Arena] take each season?": "B",
+            "At what level is [Trove Hunt] system unlocked?": "C"
         }
 
         if riddle in question.keys():
