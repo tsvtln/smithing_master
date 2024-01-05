@@ -212,7 +212,7 @@ class Manipulator(ScarletBase):
             riddle = AnalyzeScreen().riddle_finder()
             if riddle:
                 answer = HelperFunctions.riddle_solver(riddle)
-                x1, y1 = 940,844
+                x1, y1 = 940, 844
                 x2, y2 = 0, 0
                 x3, y3 = 1204, 986
                 if answer == 'A':
