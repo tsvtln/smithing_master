@@ -79,7 +79,7 @@ class HelperFunctions:
             "Which item can speed up the Forging Anvil upgrade?": "A",
             "Which item is needed for equipment forging?": "C",
             "Which item is required to upgrade a Spirit Pet?": "A",
-            "Which item is required to obtain [Blazing Wings]": "C",
+            "Which item is required to obtain [Blazing Wings]?": "C",
             "Which item is used to refresh quests in the [Trove Hunt] - [Daily Bounty]?": "A",
             "Which items are required to start a Trove Hunt?": "C",
             "Which monster is not in the Scarlet Corridor?": "B",
