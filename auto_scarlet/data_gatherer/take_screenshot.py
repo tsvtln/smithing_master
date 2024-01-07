@@ -7,7 +7,7 @@ from manipulator.scarlet_base import ScarletBase
 class TakeScreenshot(ScarletBase):
     def __init__(self):
         super().__init__()
-        
+
     def take_screenshot(self):
         # Takes screenshot of the current state of the game.
         screenshot_dir = 'collector'
