@@ -74,6 +74,7 @@ class HelperFunctions:
             "Which attribute can be obtained when the [Pauldron] part is enhanced to +5?": "A",
             "Which attribute can be obtained when the [Weapon] part is enhanced to +5?": "D",
             "Which currency can be used in Tower Shop?": "B",
+            "Which currency can be used in Tower Shap?": "B",
             "Which event doesn’t allow Spirit Pets in battles?": "A",
             "Which is a Spirit Pet type?": "D",
             "Which is the highest equipment quality?": "C",
