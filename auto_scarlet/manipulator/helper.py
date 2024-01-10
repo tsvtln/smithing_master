@@ -43,6 +43,7 @@ class HelperFunctions:
                 break
         question = {
             "At what level is [Demon Invasion] system unlocked?": "D",
+            "At what level is [Demon Invasion] system unlocked:": "D",
             "At what level is [Secret Stone] system unlocked?": "C",
             "At what level is the [Artifact] system unlocked?": "D",
             "At what level is the [Guild] system unlocked?": "B",
