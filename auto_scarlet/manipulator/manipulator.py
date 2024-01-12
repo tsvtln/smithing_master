@@ -207,7 +207,7 @@ class Manipulator(ScarletBase):
             pyautogui.leftClick(x, y)
             if tile_number in self.tiles.keys():
                 del self.tiles[tile_number]
-            time.sleep(1)
+            time.sleep(2)
             pyautogui.leftClick(x, y)
             time.sleep(3)
             riddle = AnalyzeScreen().riddle_finder()
@@ -227,14 +227,14 @@ class Manipulator(ScarletBase):
                 pyautogui.leftClick(x2, y2)
                 time.sleep(1)
                 pyautogui.leftClick(x1, y1)
-                time.sleep(1)
+                time.sleep(2)
                 # to close the reward popup
                 pyautogui.leftClick(x3, y3)
                 time.sleep(1)
             elif AnalyzeScreen().victory_finder():
                 x, y = 1210, 957
                 pyautogui.leftClick(x, y)
-                time.sleep(1)
+                time.sleep(2)
 
             elif AnalyzeScreen().shop_finder():
                 if AnalyzeScreen().chest_finder():
