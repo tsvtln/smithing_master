@@ -69,7 +69,7 @@ class Miner:
         if self.mine_counter == 0:
             self.do_it = False
 
-        time.sleep(3)
+        time.sleep(1)
         self.click()
 
     def click(self):
