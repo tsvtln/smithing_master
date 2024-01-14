@@ -1,5 +1,5 @@
 # Smithing Master
-Automation tool(s)
+Automation tools
 
 
 
