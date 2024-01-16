@@ -55,6 +55,8 @@ class Miner:
                     x, y = 924, 831
                     pyautogui.leftClick(x, y)
                 elif self.orb and self.mine_counter > 0:
+                    if gem_name == "LURID THUNDERBOL1":
+                        gem_name = "LURID THUNDERBOLT"
                     self.collected_orbs.append(gem_name)
                     self.found_orbs += 1
                     x, y = 1188, 986
