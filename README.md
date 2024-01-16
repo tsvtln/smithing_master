@@ -22,7 +22,7 @@ numpy
 pytesseract
 Pillow
 opencv-python
-tesseract executable @  https://github.com/tesseract-ocr/tesseract
+tesseract executable
 ```
 
 
@@ -42,15 +42,11 @@ numpy
 pytesseract
 Pillow
 opencv-python
-tesseract executable @  https://github.com/tesseract-ocr/tesseract
+tesseract
 ```
 Works on 1920x1080 resolution with bluestacks on windowed fullscreen mode.
 
-
-Executable    [![Download zip](https://custom-icon-badges.demolab.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white "Download zip")](https://github.com/tsvtln/smithing_master/releases/download/v1.0.2/auto_trove.zip) (not present for the moment due to AVs giving a false positive)
-
-- If you download the executable you still need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe):  https://github.com/tesseract-ocr/tesseract
-- The installer is at: https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.3.20231005.exe
+- You need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe)
 
 Example video:
 
@@ -79,9 +75,7 @@ https://github.com/tsvtln/smithing_master/assets/112159858/77c2f497-7035-46ea-a8
 ○ Input your current level.
 
 
-Executable     [![Download zip](https://custom-icon-badges.demolab.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white "Download zip")](https://github.com/tsvtln/smithing_master/releases/download/ASv1.0.0/Auto_Scarlet.zip) (not present for the moment due to AVs giving a false positive)
-- If you download the executable you still need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe):  https://github.com/tesseract-ocr/tesseract
-- The installer is at: https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.3.20231005.exe
+- You need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe)
 
 #### Requirements
 Requirements inside `requirements.txt`
@@ -92,8 +86,7 @@ numpy
 pytesseract
 Pillow
 opencv-python
-tesseract executable @  https://github.com/tesseract-ocr/tesseract
-The installer is at: https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-5.3.3.20231005.exe
+tesseract
 ```
 
 Example video:
