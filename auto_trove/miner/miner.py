@@ -23,6 +23,7 @@ class Miner:
         self.unlucky = False
         self.tip = False
         self.orb = False
+        self.bad_names = ["LURID THUNDERBOL1", "-EATHING WILDERNE"]
 
     @staticmethod
     def workdir():
@@ -55,8 +56,12 @@ class Miner:
                     x, y = 924, 831
                     pyautogui.leftClick(x, y)
                 elif self.orb and self.mine_counter > 0:
-                    if gem_name == "LURID THUNDERBOL1":
-                        gem_name = "LURID THUNDERBOLT"
+                    if gem_name in self.bad_names:
+                        # Fix typos in orb names.
+                        if gem_name == "LURID THUNDERBOL1":
+                            gem_name = "LURID THUNDERBOLT"
+                        elif gem_name == '-EATHING WILDERNE':
+                            gem_name = 'BREATHING WILDERNESS'
                     self.collected_orbs.append(gem_name)
                     self.found_orbs += 1
                     x, y = 1188, 986
@@ -91,7 +96,7 @@ class Miner:
 
         if self.collected_gems:
             # Print Gems found
-            print('#### Gems found ####')
+            print('#### Gems found ####\n')
             for i, (gem_type, gem_data) in enumerate(self.collected_gems.items()):
                 if i > 0:
                     print()
