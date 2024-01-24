@@ -48,12 +48,6 @@ Works on 1920x1080 resolution with bluestacks on windowed fullscreen mode.
 
 - You need to install Tesseract as the AI uses it to see the images. Make sure to install it in the default path (C:\Program Files\Tesseract-OCR\tesseract.exe)
 
-#### How to install/run
-- Install python
-- Run 'python -m pip install <package>'  where package is the name of the package from the requirements. e.g.: 'python -m pip install pillow'
-- Install tesseract to default path
-- Run the auto_trove.py
-
 Example video:
 
 https://github.com/tsvtln/smithing_master/assets/112159858/77c2f497-7035-46ea-a816-884a888b7858
@@ -94,12 +88,6 @@ Pillow
 opencv-python
 tesseract
 ```
-
-#### How to install/run
-- Install python
-- Run 'python -m pip install <package>'  where package is the name of the package from the requirements. e.g.: 'python -m pip install pillow'
-- Install tesseract to default path
-- Run the auto_scarlet.py
 
 Example video:
 
