@@ -140,6 +140,8 @@ class Miner:
         _, binary_img = cv2.threshold(np.array(img), 128, 255, cv2.THRESH_BINARY)
         text = pytesseract.image_to_string(Image.fromarray(binary_img), config='--psm 6')
         text = text[:-1]
+        if text == 'Aneme of Flourish':
+            text = 'Anemo of Flourish'
         return text
 
     def sort_collected_gems(self, gem_name):
