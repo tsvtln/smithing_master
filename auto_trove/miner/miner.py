@@ -60,7 +60,7 @@ class Miner:
                         # Fix typos in orb names.
                         if gem_name == "LURID THUNDERBOL1":
                             gem_name = "LURID THUNDERBOLT"
-                        elif gem_name == '-EATHING WILDERNE':
+                        elif gem_name == '-EATHING WILDERNE' or gem_name == ',EATHING WILDERNE':
                             gem_name = 'BREATHING WILDERNESS'
                     self.collected_orbs.append(gem_name)
                     self.found_orbs += 1
