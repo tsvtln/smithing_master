@@ -23,7 +23,7 @@ class Miner:
         self.unlucky = False
         self.tip = False
         self.orb = False
-        self.bad_names = ["LURID THUNDERBOL1", "-EATHING WILDERNE"]
+        self.bad_names = ["LURID THUNDERBOL1", "-EATHING WILDERNE", ",EATHING WILDERNE"]
 
     @staticmethod
     def workdir():
